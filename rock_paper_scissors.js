@@ -22,14 +22,14 @@ function getComputerChoice(){
  * @param {string} userChoice - The user's choice of rock, paper, or scissors.
  * @returns {string} The user's choice in lowercase if valid, otherwise a message to enter a valid choice.
  */
-function getHumanChoice(userChoice){
-    userChoice = userChoice.toLowerCase();
-    if(Choice.includes(userChoice)){
-        return userChoice;
-    }
-    return "Enter rock,paper or scissors"
+// function getHumanChoice(userChoice){
+//     userChoice = userChoice.toLowerCase();
+//     if(Choice.includes(userChoice)){
+//         return userChoice;
+//     }
+//     return "Enter rock,paper or scissors"
 
-}
+// }
 
 /**
  * Simulates a round of rock-paper-scissors game between a human and a computer.
@@ -55,34 +55,49 @@ function playRound(computerChoice, humanChoice){
     }
     else 
         computerScore++;
+        console.log(computerScore);
         return `You Lose! ${computerChoice} beats ${humanChoice}`;
 }
 
+document.querySelector("#rock").addEventListener("click", playerSelection);
+document.querySelector("#paper").addEventListener("click", playerSelection);
+document.querySelector("#scissors").addEventListener("click", playerSelection);
 
+function playerSelection(event){
+        let computerChoice = getComputerChoice();
+        let humanChoice = event.target.id;
+
+        let result = document.querySelector("#results");
+        result.textContent = playRound(computerChoice, humanChoice);
+        let winner = document.querySelector("#winner");
+        if(humanScore >= 5 || computerScore >= 5){
+            if(computerScore = 5){
+                winner.textContent = `Computer Won: Score board- Human : ${humanScore}pts --- Computer : ${computerScore}pts`;
+                humanScore = 0;
+                computerScore = 0;
+                winner.textContent = "";
+            }
+            else
+                winner.textContent = `You Won: Score board- Human : ${humanScore}pts --- Computer : ${computerScore}pts`;
+                humanScore = 0;
+                computerScore = 0;
+                winner.textContent = "";
+        }
+
+}
 /**
  * Simulates a game of rock, paper, scissors for 5 rounds between a human player and the computer.
  * @returns {string} The result of the game and the final score board.
  */
-function playGame(){
-    let round = 1;
-    while(round<=5){
-        let computerChoice = getComputerChoice();
-        console.log(computerChoice);
-        let humanChoice = getHumanChoice(window.prompt("Enter rock,paper or scissors",""));
-        console.log(humanChoice);
-        console.log(playRound(computerChoice,humanChoice));
-        round++;
-    }
-
-    if(humanScore == computerScore){
-        return `Its a Tie: Score board- Human : ${humanScore}pts --- Computer : ${computerScore}pts`;
-    }
-    else if (humanScore > computerScore){
-        return `You Won: Score board- Human : ${humanScore}pts --- Computer : ${computerScore}pts`;
-    }
-    else 
-        return `Computer Won: Score board- Human : ${humanScore}pts --- Computer : ${computerScore}pts`;
+// function playGame(){
+   
+//     if(humanScore == computerScore){
+//         return `Its a Tie: Score board- Human : ${humanScore}pts --- Computer : ${computerScore}pts`;
+//     }
+//     else if (humanScore > computerScore){
+//         return `You Won: Score board- Human : ${humanScore}pts --- Computer : ${computerScore}pts`;
+//     }
+//     else 
+//         return `Computer Won: Score board- Human : ${humanScore}pts --- Computer : ${computerScore}pts`;
     
-}
-
-console.log(playGame());
+// }
